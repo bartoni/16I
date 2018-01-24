@@ -1,18 +1,19 @@
 package sample;
 
+import com.opencsv.CSVWriter;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -82,6 +83,29 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
 
     }
 
+    public void zapisz(ActionEvent actionEvent) throws IOException {
+        CSVWriter writer = new CSVWriter(new FileWriter("data.csv"), ';', '"', '\\', "\n");
+
+        String[] dataWrite = new String[6];
+
+        for (Student student : tabelka.getItems()) {
+            dataWrite[0] = student.getName();
+            dataWrite[1] = student.getSurname();
+            dataWrite[2] = String.valueOf(student.getGrade());
+            dataWrite[3] = student.getGradeDetailed();
+            dataWrite[4] = student.getPesel();
+            dataWrite[5] = student.getIdx();
+
+
+            writer.writeNext(dataWrite);
+        }
+
+        writer.close();
+    }
+
+
+
+    /*
     public void zapisz(ActionEvent actionEvent) {
         //definicja naglowkow
         String[] headers = new String[]{"Imię", "Nazwisko", "Ocena", "Uzasadnienie", "PESEL", "Numer indeksu"};
@@ -146,9 +170,8 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
         }
     }
 
-    /**
-     * Uwaga na serializację: https://sekurak.pl/java-vs-deserializacja-niezaufanych-danych-i-zdalne-wykonanie-kodu-czesc-i/
-     */
+    */
+
     public void wczytaj(ActionEvent actionEvent) {
         ArrayList<Student> studentsList = new ArrayList<>();
         try (FileInputStream ois = new FileInputStream("data.xlsx")) {
@@ -176,5 +199,6 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
