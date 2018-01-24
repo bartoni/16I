@@ -1,18 +1,15 @@
 package sample;
 
-import com.opencsv.CSVWriter;
+import com.opencsv.*;
+import com.opencsv.enums.CSVReaderNullFieldIndicator;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -103,7 +100,36 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
         writer.close();
     }
 
+    public void wczytaj(ActionEvent actionEvent) throws IOException {
+        ArrayList<Student> studentsList = new ArrayList<>();
 
+        FileReader fileReader = new FileReader("data.csv");
+
+        CSVParserBuilder parserBuilder = new CSVParserBuilder();
+        CSVReaderBuilder readerBuilder = new CSVReaderBuilder(fileReader);
+
+        CSVParser parser = parserBuilder.withSeparator(';').build();
+        CSVReader reader = readerBuilder.withCSVParser(parser).withFieldAsNull(CSVReaderNullFieldIndicator.EMPTY_SEPARATORS).build();
+
+        String[] nextLine;
+        while ((nextLine = reader.readNext()) != null) {
+            Student student = new Student();
+            student.setName(nextLine[0]);
+            student.setSurname(nextLine[1]);
+            if (student.getGrade() != null) {
+                student.setGrade(Double.valueOf(nextLine[2]));
+            }
+            student.setGradeDetailed(nextLine[3]);
+            student.setPesel(nextLine[4]);
+            student.setIdx(nextLine[5]);
+            studentsList.add(student);
+        }
+        tabelka.getItems().clear();
+        tabelka.getItems().addAll(studentsList);
+
+        reader.close();
+
+    }
 
     /*
     public void zapisz(ActionEvent actionEvent) {
@@ -171,7 +197,7 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
     }
 
     */
-
+    /*
     public void wczytaj(ActionEvent actionEvent) {
         ArrayList<Student> studentsList = new ArrayList<>();
         try (FileInputStream ois = new FileInputStream("data.xlsx")) {
@@ -201,4 +227,5 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
         }
 
     }
+    */
 }
