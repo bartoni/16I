@@ -1,6 +1,14 @@
 package sample;
 
-import com.opencsv.*;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Table;
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.enums.CSVReaderNullFieldIndicator;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
@@ -10,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -79,7 +86,7 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
         }
 
     }
-
+    /*
     public void zapisz(ActionEvent actionEvent) throws IOException {
         CSVWriter writer = new CSVWriter(new FileWriter("data.csv"), ';', '"', '\\', "\n");
 
@@ -98,6 +105,38 @@ public class DaneOsobowe implements HierarchicalController<MainController> {
         }
 
         writer.close();
+    }
+    */
+
+    public void zapisz(ActionEvent actionEvent) throws Exception {
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter("data.pdf"));
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+
+        Document document = new Document(pdfDocument);
+
+        Table table = new Table(6);
+
+        for (Student student : tabelka.getItems()) {
+
+
+            table.addCell((student.getName() != null) ? student.getName() : "  ");
+
+            table.addCell((student.getSurname() != null) ? student.getSurname() : "  ");
+
+            table.addCell((student.getGrade() != null) ? String.valueOf(student.getGrade()) : "  ");
+
+            table.addCell((student.getGradeDetailed() != null) ? student.getGradeDetailed() : "  ");
+
+            table.addCell((student.getPesel() != null) ? student.getPesel() : "  ");
+
+            table.addCell((student.getIdx() != null) ? student.getIdx() : "  ");
+
+        }
+        document.add(table);
+
+        document.close();
+
     }
 
     public void wczytaj(ActionEvent actionEvent) throws IOException {

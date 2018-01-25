@@ -423,6 +423,31 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-beanutils-1.9.3/commons-beanutils-1.9.3-tests.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-beanutils-1.9.3/commons-beanutils-1.9.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-lang3-3.7/commons-lang3-3.7-tests.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-lang3-3.7/commons-lang3-3.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-text-1.2/commons-text-1.2-tests.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-text-1.2/commons-text-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/lib/commons-beanutils-1.9.3/commons-beanutils-1.9.3-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-lang3-3.7/commons-lang3-3.7-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-text-1.2/commons-text-1.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/commons-beanutils-1.9.3/commons-beanutils-1.9.3-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-beanutils-1.9.3/commons-beanutils-1.9.3-test-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-lang3-3.7/commons-lang3-3.7-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-lang3-3.7/commons-lang3-3.7-test-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-text-1.2/commons-text-1.2-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-text-1.2/commons-text-1.2-test-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="slf4j-1.7" level="project" />
   </component>
 </module>
